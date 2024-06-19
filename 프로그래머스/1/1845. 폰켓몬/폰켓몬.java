@@ -1,16 +1,15 @@
-import java.util.HashMap;
+import java.util.HashSet;
 
 class Solution {
     public int solution(int[] nums) {
         int answer = 0;
         
-        HashMap<Integer, Integer> map = new HashMap<>(); //<포켓몬 번호, 개수>
-        for(int n : nums) map.put(n, map.getOrDefault(n,0)+1);
+        HashSet<Integer> hs = new HashSet<>();
         
-        int cnt = nums.length/2;
+        for(int num : nums) hs.add(num);
         
-        if (map.size() > cnt) answer = cnt;
-        else answer = map.size();
+        if(nums.length/2 > hs.size()) answer = hs.size();
+        else answer = nums.length/2;
         
         return answer;
     }
