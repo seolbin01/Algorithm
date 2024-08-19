@@ -10,6 +10,8 @@ public class Main {
 
             int n = Integer.parseInt(br.readLine());
 
+            StringBuilder sb = new StringBuilder();
+
             PriorityQueue<Integer> absHeap = new PriorityQueue<>((a, b) -> {
                 if (Math.abs(a) != Math.abs(b)) {
                     return Math.abs(a) - Math.abs(b);
@@ -24,12 +26,18 @@ public class Main {
                     absHeap.offer(x);
                 } else {
                     if (!absHeap.isEmpty()) {
-                        System.out.println(absHeap.poll());
+                        sb.append(absHeap.poll()).append("\n");
                     } else {
-                        System.out.println(0);
+                        sb.append(0).append("\n");
                     }
                 }
             }
+
+            if (sb != null) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+            System.out.print(sb);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
