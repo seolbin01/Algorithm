@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
 
@@ -44,7 +42,7 @@ public class Main {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == 1 && !visited[i][j]) {
                     size = 1;
-                    dfsStack(i, j);
+                    bfs(i, j);
                     result.add(size);
                 }
             }
@@ -64,20 +62,20 @@ public class Main {
 
     }
 
-    private static void dfsStack(int x, int y) {
-        Stack<Node> stack = new Stack<>();
-        stack.push(new Node(x, y));
+    private static void bfs(int x, int y) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(new Node(x, y));
         visited[x][y] = true;
 
-        while (!stack.isEmpty()) {
-            Node node = stack.pop();
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
 
             for (int i = 0; i < 4; i++) {
                 int cx = node.x + dirX[i];
                 int cy = node.y + dirY[i];
 
                 if (checkRange(cx, cy) && map[cx][cy] == 1 && !visited[cx][cy]) {
-                    stack.push(new Node(cx, cy));
+                    queue.offer(new Node(cx, cy));
                     visited[cx][cy] = true;
                     size++;
                 }
