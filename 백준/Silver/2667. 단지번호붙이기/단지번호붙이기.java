@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Stack;
 
 public class Main {
 
@@ -13,6 +14,16 @@ public class Main {
     static int[] dirX = {0, 0, 1, -1};
     static int[] dirY = {-1, 1, 0, 0};
     static ArrayList<Integer> result;
+
+    static class Node {
+        int x;
+        int y;
+
+        Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,7 +44,7 @@ public class Main {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == 1 && !visited[i][j]) {
                     size = 1;
-                    dfs(i, j);
+                    dfsStack(i, j);
                     result.add(size);
                 }
             }
@@ -45,7 +56,7 @@ public class Main {
 
         sb.append(result.size()).append("\n");
 
-        for(int n : result) {
+        for (int n : result) {
             sb.append(n).append("\n");
         }
 
@@ -53,18 +64,24 @@ public class Main {
 
     }
 
-    private static void dfs(int x, int y) {
+    private static void dfsStack(int x, int y) {
+        Stack<Node> stack = new Stack<>();
+        stack.push(new Node(x, y));
         visited[x][y] = true;
 
-        for (int i = 0; i < 4; i++) {
-            int cx = x + dirX[i];
-            int cy = y + dirY[i];
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
 
-            if(checkRange(cx, cy) && map[cx][cy] == 1 && !visited[cx][cy]) {
-                size++;
-                dfs(cx, cy);
+            for (int i = 0; i < 4; i++) {
+                int cx = node.x + dirX[i];
+                int cy = node.y + dirY[i];
+
+                if (checkRange(cx, cy) && map[cx][cy] == 1 && !visited[cx][cy]) {
+                    stack.push(new Node(cx, cy));
+                    visited[cx][cy] = true;
+                    size++;
+                }
             }
-
         }
     }
 
