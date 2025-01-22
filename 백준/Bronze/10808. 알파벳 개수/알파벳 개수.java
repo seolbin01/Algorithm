@@ -12,12 +12,7 @@ public class Main {
         int[] result = new int[26];
 
         for (char c : arr) {
-            for (int i=0;i<26;i++) {
-                if (c - 'a' == i) {
-                    result[i]++;
-                    break;
-                }
-            }
+            result[c - 'a']++;
         }
 
         StringBuilder sb = new StringBuilder();
