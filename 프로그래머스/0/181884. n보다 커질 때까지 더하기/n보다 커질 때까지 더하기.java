@@ -3,8 +3,11 @@ class Solution {
         int answer = 0;
         
         for (int num : numbers) {
-            answer += num;
-            if (answer > n) break;
+            if (answer > n) {
+                break;
+            } else {
+                answer += num;
+            }
         }
         
         return answer;
