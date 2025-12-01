@@ -31,15 +31,8 @@ public class Main {
 
     private static void divide(int x, int y, int size) {
 
-        int[][] curMap = new int[size][size];
-        for (int i=x;i<x+size;i++) {
-            for (int j=y;j<y+size;j++) {
-                curMap[i-x][j-y] = map[i][j];
-            }
-        }
-
-        if (chk(curMap)) {
-            if (curMap[0][0] == 0) {
+        if (chk(x, y, size)) {
+            if (map[x][y] == 0) {
                 white++;
             } else {
                 blue++;
@@ -54,21 +47,17 @@ public class Main {
         divide(x+half, y+half, half);
     }
 
-    private static boolean chk(int[][] smallMap) {
+    private static boolean chk(int x, int y, int size) {
+        int color = map[x][y];
 
-        boolean colorChk = true;
-
-        int color = smallMap[0][0];
-        loop:
-        for (int[] arr : smallMap) {
-            for (int i=0;i<arr.length;i++) {
-                if (color != arr[i]) {
-                    colorChk = false;
-                    break loop;
+        for (int i=x;i<x+size;i++) {
+            for (int j=y;j<y+size;j++) {
+                if (map[i][j] != color) {
+                    return false;
                 }
             }
         }
 
-        return colorChk;
+        return true;
     }
 }
