@@ -11,12 +11,9 @@ public class Main {
         String S = br.readLine();
 
         Set<String> set = new HashSet<>();
-        StringBuilder sb;
         for (int i=0;i<S.length();i++) {
-            sb = new StringBuilder();
-            for (int j=i;j<S.length();j++) {
-                sb.append(S.charAt(j));
-                set.add(sb.toString());
+            for (int j=i+1;j<=S.length();j++) {
+                set.add(S.substring(i, j));
             }
         }
 
